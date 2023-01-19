@@ -2130,7 +2130,18 @@ MonoBehaviour:
     m_ActionId: 48f67660-2988-4e4f-a7b9-2a729df81583
     m_ActionName: Hero/Horizontal[/Keyboard/a,/Keyboard/d,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1545696431}
+        m_MethodName: OnSaySomething
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 9f53dc24-3dfe-48c4-89ab-aebb5ac178c3
     m_ActionName: Hero/SaySomething[/Mouse/leftButton]
   - m_PersistentCalls:

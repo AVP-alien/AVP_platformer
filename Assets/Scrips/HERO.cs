@@ -21,6 +21,6 @@ public class HERO : MonoBehaviour
     }
     public void SaySomething()
     {
-        Debug.Log("Something");
+        Debug.Log("ОРЕТ");
     }
 }

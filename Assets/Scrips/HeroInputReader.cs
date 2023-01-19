@@ -28,10 +28,12 @@ public class HeroInputReader : MonoBehaviour
         var direction = context.ReadValue<Vector2>();
         _hero.SetDirection(direction);
     }
-    private void OnSaySomething(InputAction.CallbackContext context)
+    public void OnSaySomething(InputAction.CallbackContext context)
     {
-        _hero.SaySomething();
-
+        if (context.phase == InputActionPhase.Performed)
+        {
+            _hero.SaySomething();
+        }
     }
 }
  
