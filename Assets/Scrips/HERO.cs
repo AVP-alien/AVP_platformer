@@ -2,21 +2,21 @@
 
 public class HERO : MonoBehaviour
 {
-    [SerializeField] private float _speed;
-    private float _direction;
+    [SerializeField]    private float _speedX;
+    [SerializeField]    private float _speedY;
+    private Vector2 _direction;
 
-
-    public void SetDirection(float direction)
+    public void SetDirection( Vector2 direction)
     {
         _direction = direction;
     }
     private void Update()
     {
-        if (_direction != 0)
+        if (_speedX != 0 || _speedY!=0 )
         {
-            var deltaX = _speed * _direction * Time.deltaTime;
-            var newXPosition = transform.position.x + deltaX;
-            transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
+            var deltax = _direction * _speedX * Time.deltaTime;
+            var deltay = _direction * _speedY * Time.deltaTime;
+            transform.position += new Vector3(deltax.x, deltay.y,transform.position.z);
         }
     }
     public void SaySomething()

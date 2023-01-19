@@ -2097,7 +2097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b2e7607cf815a4c87c9bdd32da950f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
+  _speedX: 1
+  _speedY: 1
 --- !u!114 &1545696433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2125,24 +2126,17 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1545696431}
-        m_MethodName: OnHorizontal
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 48f67660-2988-4e4f-a7b9-2a729df81583
-    m_ActionName: Hero/Horizontal[/Keyboard/a,/Keyboard/d]
+    m_ActionName: Hero/Horizontal[/Keyboard/a,/Keyboard/d,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9f53dc24-3dfe-48c4-89ab-aebb5ac178c3
+    m_ActionName: Hero/SaySomething[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1545696431}
-        m_MethodName: OnSaySomething
+        m_MethodName: On2DMovement
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2152,8 +2146,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 9f53dc24-3dfe-48c4-89ab-aebb5ac178c3
-    m_ActionName: Hero/New action
+    m_ActionId: 858484bf-8f56-4e5e-9dd6-f35af6e74c81
+    m_ActionName: Hero/New action[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Hero
