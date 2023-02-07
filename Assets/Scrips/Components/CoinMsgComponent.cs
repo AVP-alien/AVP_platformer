@@ -17,7 +17,7 @@ namespace AVPplatformer.Components
             int gold = _gold.GoldenCoinsNum;
 
             int Coinsnum = silver + gold;
-            Debug.Log("Всего EBUCHICH монет " + Coinsnum);
+            Debug.Log("Всего монет " + Coinsnum);
 
 
         }
