@@ -7,6 +7,8 @@ TagManager:
   - SilverCoins
   - GoldenCoins
   - Coins
+  - ENEMY
+  - HEALER
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Props
   - Hero
   - Front Decor
-  - 
+  - Interactable
   - 
   - 
   - 
