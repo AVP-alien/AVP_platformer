@@ -1,5 +1,6 @@
 ﻿using AVPplatformer.Components;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -12,14 +13,20 @@ public class HERO : MonoBehaviour
     [SerializeField] private float _interactionRadius;
     [SerializeField] private LayerMask _interactionLayer;
 
+    [SerializeField] private SpawnComponent _footStepsParticle;
+    [SerializeField] private SpawnComponent _jumpParticle;
+    [SerializeField] private SpawnComponent _fallParticle;
+
+    
     private Rigidbody2D _rigidbody;
     private Vector2 _direction;
     private Animator _animator;
-    private SpriteRenderer _sprite;
     private bool _isGrounded;
     private bool _allowDoubleJump;
     private Collider2D[] _interactionResult = new Collider2D[1];
-
+    int _coins;
+    bool _doubleJumpUsed;
+  
 
     private static readonly int IsGroundKey = Animator.StringToHash("isGround");
     private static readonly int IsRunningKey = Animator.StringToHash("isRunning");
@@ -30,7 +37,7 @@ public class HERO : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        _sprite = GetComponent<SpriteRenderer>();
+    
     }
    
     public void SetDirection(Vector2 direction)
@@ -93,19 +100,23 @@ public class HERO : MonoBehaviour
         {
             yVelocity = _jumpSpeed;
             _allowDoubleJump= false;
+            _doubleJumpUsed = true;
         }
+        
+           
         return yVelocity;
+       
     }
     private void UpdateSpriteDirection()
     {
         if (_direction.x > 0)
         {
-            _sprite.flipX = false;
-        }
+            transform.localScale = Vector3.one;
+             }
         else if (_direction.x < 0)
         {
-            _sprite.flipX = true;
-        }
+            transform.localScale = new Vector3(-1, 1, 1);
+                    }
     }
     public void SaySomething()
     {
@@ -121,7 +132,18 @@ public class HERO : MonoBehaviour
     {
         _animator.SetTrigger(Hit);
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _damagejumpSpeed);
+
+        var coins = GetComponent<CoinMsgComponent>();
+        _coins = coins.Coinsnum;
+
+        if (_coins > 0)
+        {
+            coins.SpawnCoins();
+        }
+
     }
+
+   
     public void Interact()
     {
         var size = Physics2D.OverlapCircleNonAlloc(transform.position, _interactionRadius, _interactionResult, _interactionLayer);
@@ -132,4 +154,27 @@ public class HERO : MonoBehaviour
             interactable?.Interact();
         }
     }
+
+    public void SpawnFootDust()
+    {
+        _footStepsParticle.Spawn();
+    }
+
+    public void SpawnJumpDust()
+    {
+        _jumpParticle.Spawn();
+    }
+
+    public void SpawnFallDust()
+    {
+        //
+        //Debug.Log("дабл джамп" + _doubleJumpUsed );
+        if (_doubleJumpUsed == true)
+        {
+            _fallParticle.Spawn();
+        }
+        _doubleJumpUsed = false;
+      
+    }
 }
+
