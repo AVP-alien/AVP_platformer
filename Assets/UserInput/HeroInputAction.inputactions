@@ -15,9 +15,9 @@
                 },
                 {
                     "name": "2DMovement",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "858484bf-8f56-4e5e-9dd6-f35af6e74c81",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },

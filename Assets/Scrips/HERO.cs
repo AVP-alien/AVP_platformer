@@ -16,30 +16,31 @@ public class HERO : MonoBehaviour
     [SerializeField] private SpawnComponent _footStepsParticle;
     [SerializeField] private SpawnComponent _jumpParticle;
     [SerializeField] private SpawnComponent _fallParticle;
+    [SerializeField] float _gravityChange;
 
-    
     private Rigidbody2D _rigidbody;
     private Vector2 _direction;
     private Animator _animator;
     private bool _isGrounded;
     private bool _allowDoubleJump;
     private Collider2D[] _interactionResult = new Collider2D[1];
-    int _coins;
-    bool _doubleJumpUsed;
-  
+    private int _coins;
+    private bool _doubleJumpUsed;
+    private bool _isJumping;
+    private bool _upWind;
 
     private static readonly int IsGroundKey = Animator.StringToHash("isGround");
     private static readonly int IsRunningKey = Animator.StringToHash("isRunning");
     private static readonly int VerticalSpeedKey = Animator.StringToHash("verticalSpeed");
-     private static readonly int Hit = Animator.StringToHash("hit");
+    private static readonly int Hit = Animator.StringToHash("hit");
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-    
+
     }
-   
+
     public void SetDirection(Vector2 direction)
     {
         _direction = direction;
@@ -53,38 +54,58 @@ public class HERO : MonoBehaviour
     {
         var xVelocity = _direction.x * _speed;
         var yVelocity = CalculateYVelocity();
-        _rigidbody.velocity= new Vector2(xVelocity, yVelocity);
+        _rigidbody.velocity = new Vector2(xVelocity, yVelocity);
 
         _animator.SetFloat(VerticalSpeedKey, _rigidbody.velocity.y);
         _animator.SetBool(IsGroundKey, _isGrounded);
-        _animator.SetBool(IsRunningKey, _direction.x != 0 );
+        _animator.SetBool(IsRunningKey, _direction.x != 0);
 
 
         UpdateSpriteDirection();
-            
+
     }
     private float CalculateYVelocity()
     {
         var yVelocity = _rigidbody.velocity.y;
         var isJumpPressing = _direction.y > 0;
-        
-        if (_isGrounded) _allowDoubleJump= true;
+
+        if (_isGrounded)
+        {
+            _allowDoubleJump = true;
+            _isJumping = false;
+        }
 
         if (isJumpPressing)
         {
-            yVelocity = CalculateJumpVelocity (yVelocity);
+            _isJumping = true;
+            yVelocity = CalculateJumpVelocity(yVelocity);
             if (_isGrounded && _rigidbody.velocity.y <= 0.001f)
             {
                 _rigidbody.AddForce(Vector2.up * _jumpSpeed, ForceMode2D.Impulse);
             }
 
         }
-        else if (_rigidbody.velocity.y > 0)
+        else if (_rigidbody.velocity.y > 0 && _isJumping)
         {
             yVelocity *= 0.5f;
-            
+
         }
+
+
+        if (_upWind == true )                                                   // Проверка на попадание в поток
+        {
+            _rigidbody.gravityScale = -1f;                                      // Изменение гравитации героя
+        }
+        else if (_upWind == false)
+        {
+            _rigidbody.gravityScale = 2f;
+        }
+
+        _upWind = false;
+       
+
         return yVelocity;
+       
     }
 
     private float CalculateJumpVelocity(float yVelocity)
@@ -95,28 +116,29 @@ public class HERO : MonoBehaviour
         if (_isGrounded)
         {
             yVelocity += _jumpSpeed;
-         }
+
+        }
         else if (_allowDoubleJump)
         {
             yVelocity = _jumpSpeed;
-            _allowDoubleJump= false;
+            _allowDoubleJump = false;
             _doubleJumpUsed = true;
         }
-        
-           
+
+
         return yVelocity;
-       
+
     }
     private void UpdateSpriteDirection()
     {
         if (_direction.x > 0)
         {
             transform.localScale = Vector3.one;
-             }
+        }
         else if (_direction.x < 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
-                    }
+        }
     }
     public void SaySomething()
     {
@@ -130,6 +152,7 @@ public class HERO : MonoBehaviour
 
     public void TakeDamage()
     {
+        _isJumping = false;
         _animator.SetTrigger(Hit);
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _damagejumpSpeed);
 
@@ -143,12 +166,11 @@ public class HERO : MonoBehaviour
 
     }
 
-   
     public void Interact()
     {
         var size = Physics2D.OverlapCircleNonAlloc(transform.position, _interactionRadius, _interactionResult, _interactionLayer);
 
-        for (int i= 0; i < size; i++)
+        for (int i = 0; i < size; i++)
         {
             var interactable = _interactionResult[i].GetComponent<InteractableComponent>();
             interactable?.Interact();
@@ -167,14 +189,22 @@ public class HERO : MonoBehaviour
 
     public void SpawnFallDust()
     {
-        //
-        //Debug.Log("дабл джамп" + _doubleJumpUsed );
+        
         if (_doubleJumpUsed == true)
         {
             _fallParticle.Spawn();
         }
         _doubleJumpUsed = false;
-      
+
     }
+
+    public void UpWind()
+    {
+        //  _rigidbody.AddForce(Vector2.up * _gravityChange, ForceMode2D.Impulse);
+        
+        _upWind = true;
+        Debug.Log("KHVJHGVKGHVKGHVKGVJG" + _upWind);
+    }
+
 }
 

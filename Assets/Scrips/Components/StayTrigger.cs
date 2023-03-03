@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-
 namespace AVPplatformer.Components
 {
-    public class EnterTrigger : MonoBehaviour
+    public class StayTrigger : MonoBehaviour
     {
         [SerializeField] private string _tag;
         [SerializeField] private UnityEvent _action;
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D other)
         {
             if (other.gameObject.CompareTag(_tag))
             {
@@ -19,8 +18,5 @@ namespace AVPplatformer.Components
 
             }
         }
-
     }
-
-
 }
