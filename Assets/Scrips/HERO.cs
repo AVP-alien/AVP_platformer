@@ -1,22 +1,35 @@
 ﻿using AVPplatformer.Components;
+using AVPplatformer.Utils;
+using AVPplatformer;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using System.Collections;
+using UnityEditor.Animations;
 
 public class HERO : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpSpeed;
+    [SerializeField] private int _damage;
     [SerializeField] private float _damagejumpSpeed;
+    [SerializeField] private float _slamDownVelocity;
     [SerializeField] private LayerCheck _groundCheck;
+    [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private float _interactionRadius;
     [SerializeField] private LayerMask _interactionLayer;
+    [SerializeField] float _gravityChange;
+    [SerializeField] private CheckCircleOverlap _attackRange;
+    [Space]    [Header("Particles")]
+
+    [SerializeField] private AnimatorController _armed;
+    [SerializeField] private AnimatorController _disarmed;
+
 
     [SerializeField] private SpawnComponent _footStepsParticle;
     [SerializeField] private SpawnComponent _jumpParticle;
     [SerializeField] private SpawnComponent _fallParticle;
-    [SerializeField] float _gravityChange;
+    [SerializeField] private SpawnComponent _attack1Particle;
 
     private Rigidbody2D _rigidbody;
     private Vector2 _direction;
@@ -28,11 +41,14 @@ public class HERO : MonoBehaviour
     private bool _doubleJumpUsed;
     private bool _isJumping;
     private bool _upWind;
+    private bool _isArmed;
+
 
     private static readonly int IsGroundKey = Animator.StringToHash("isGround");
     private static readonly int IsRunningKey = Animator.StringToHash("isRunning");
     private static readonly int VerticalSpeedKey = Animator.StringToHash("verticalSpeed");
     private static readonly int Hit = Animator.StringToHash("hit");
+    private static readonly int AttackKey = Animator.StringToHash("attack");
 
     private void Awake()
     {
@@ -116,13 +132,14 @@ public class HERO : MonoBehaviour
         if (_isGrounded)
         {
             yVelocity += _jumpSpeed;
-
+            _jumpParticle.Spawn();
         }
         else if (_allowDoubleJump)
         {
             yVelocity = _jumpSpeed;
             _allowDoubleJump = false;
             _doubleJumpUsed = true;
+            _jumpParticle.Spawn();
         }
 
 
@@ -176,7 +193,47 @@ public class HERO : MonoBehaviour
             interactable?.Interact();
         }
     }
+    public void Attack()
+    {
+        if (!_isArmed) return;
+       
+        _animator.SetTrigger(AttackKey);
 
+    }
+
+    public void OnAttacking()
+    {
+        var gos = _attackRange.GetObjectsInRange();
+
+        foreach (var go in gos)
+        {
+            var hp = go.GetComponent<HealthComponent>();
+            if (hp != null && go.CompareTag("ENEMY"))
+            {
+                hp.ApplyDamage(_damage);
+            }
+        }
+    }
+
+    public void ArmHero()
+    {
+        _isArmed = true;
+        _animator.runtimeAnimatorController = _armed;
+     }
+
+    //private void OnCollisionEnter2D(Collision2D other)
+    //{
+    //    if (other.gameObject.IsInlayer(_groundLayer))
+    //    {
+
+    //        var contact = other.contacts;
+
+    //        if (contact.relativeVelocity.y >= _slamDownVelocity)
+    //        {
+    //            _fallParticle.Spawn();
+    //        }
+    //    }
+    //}
     public void SpawnFootDust()
     {
         _footStepsParticle.Spawn();
@@ -189,7 +246,7 @@ public class HERO : MonoBehaviour
 
     public void SpawnFallDust()
     {
-        
+
         if (_doubleJumpUsed == true)
         {
             _fallParticle.Spawn();
@@ -197,13 +254,16 @@ public class HERO : MonoBehaviour
         _doubleJumpUsed = false;
 
     }
+    public void SpawnAttackParticle()
+    {
+        _attack1Particle.Spawn();
+    }
 
     public void UpWind()
     {
-        //  _rigidbody.AddForce(Vector2.up * _gravityChange, ForceMode2D.Impulse);
-        
+           
         _upWind = true;
-        Debug.Log("KHVJHGVKGHVKGHVKGVJG" + _upWind);
+    
     }
 
 }

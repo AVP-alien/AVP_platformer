@@ -96,38 +96,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _framerate: 10
-  _loop: 0
-  _sprites:
-  - {fileID: 21300000, guid: 9b6e06e2caf5f8e489fa86e5384fe188, type: 3}
-  - {fileID: 21300000, guid: a608c2ebbf967704fa3d4ab0d5cba59c, type: 3}
-  - {fileID: 21300000, guid: af60498e7adbf1b4ebd90df1e9917c9a, type: 3}
-  - {fileID: 21300000, guid: c10564cc1c025304483b7c9e81a3f224, type: 3}
-  - {fileID: 21300000, guid: dea62321a339b5d4393a8dfaea3cb390, type: 3}
-  _onComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 480975803059601217}
-        m_MethodName: DestroyObject
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 436971615892866719}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _clips:
+  - _name: Run
+    _sprites:
+    - {fileID: 21300000, guid: 9b6e06e2caf5f8e489fa86e5384fe188, type: 3}
+    - {fileID: 21300000, guid: a608c2ebbf967704fa3d4ab0d5cba59c, type: 3}
+    - {fileID: 21300000, guid: a608c2ebbf967704fa3d4ab0d5cba59c, type: 3}
+    - {fileID: 21300000, guid: af60498e7adbf1b4ebd90df1e9917c9a, type: 3}
+    - {fileID: 21300000, guid: c10564cc1c025304483b7c9e81a3f224, type: 3}
+    - {fileID: 21300000, guid: dea62321a339b5d4393a8dfaea3cb390, type: 3}
+    _loop: 0
+    _allowNextClip: 0
+    _onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 436971615892866719}
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 480975803059601217}
+          m_MethodName: DestroyObject
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &480975803059601217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,4 +144,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e088b3ec19448a448973df593126e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectToDestroy: {fileID: 0}
+  _objectToDestroy: {fileID: 436971615892866714}
