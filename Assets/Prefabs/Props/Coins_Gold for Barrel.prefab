@@ -121,7 +121,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8031404156454473025}
-        m_MethodName: GoldenCoinsCounter
+        m_MethodName: Add
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f02d6967cc55494fbf40b036991342a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoldenCoinsNum: 0
+  _numCoins: 10
 --- !u!50 &3811548031067934198
 Rigidbody2D:
   serializedVersion: 4

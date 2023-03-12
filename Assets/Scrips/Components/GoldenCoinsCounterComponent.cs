@@ -7,16 +7,18 @@ namespace AVPplatformer.Components
 {
     public class GoldenCoinsCounterComponent : MonoBehaviour
     {
+        [SerializeField] private int _numCoins;
+        private HERO _hero;
 
-        public int GoldenCoinsNum = 0;
-
-        public void GoldenCoinsCounter()
+        private void Start()
         {
-            GoldenCoinsNum += 10;
+            _hero = FindObjectOfType<HERO>();
+        }
 
+        public void Add()
+        {
+            _hero.AddCoins(_numCoins );
             Debug.Log("Вы подобрали золотую монетку!");
-
-
         }
     }
 }

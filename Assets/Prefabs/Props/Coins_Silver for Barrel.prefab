@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c06de7cc455d7241ad4b46e8837ac41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SilverCoinsNum: 0
+  _numCoins: 1
 --- !u!58 &5712758613937712611
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5712758613937712620}
-        m_MethodName: SilverCoinsCounter
+        m_MethodName: Add
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

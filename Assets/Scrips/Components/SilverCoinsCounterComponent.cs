@@ -1,23 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 
 namespace AVPplatformer.Components
 {
     public class SilverCoinsCounterComponent : MonoBehaviour
     {
+        [SerializeField] private int _numCoins;
+        private HERO _hero;
 
-        public int SilverCoinsNum = 0;
-      
-
-        public void SilverCoinsCounter ()
+        private void Start()
         {
-            SilverCoinsNum++;
-            Debug.Log("Вы подобрали серебряную монетку!" + SilverCoinsNum);
+            _hero = FindObjectOfType<HERO>();
+        }
+
+        public void Add()
+        {
+            _hero.AddCoins(_numCoins);
+            Debug.Log("Вы подобрали серебряную монетку!");
         }
     }
 }

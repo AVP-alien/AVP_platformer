@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,10 +12,12 @@ namespace AVPplatformer.Components
         [SerializeField] public int _health;
         [SerializeField] private UnityEvent _onDamage;
         [SerializeField] private UnityEvent _onDie;
+        [SerializeField] private HealsChangeEvent _onChange;
 
         public void ApplyDamage(int damageValue)
         {
             _health -= damageValue;
+            _onChange?.Invoke(_health);
             Debug.Log("Осталось здоровья " +  _health);
             _onDamage?.Invoke();
             if (_health <= 0)
@@ -26,6 +29,16 @@ namespace AVPplatformer.Components
         {
             _health += HealValue;
             Debug.Log("Осталось здоровья " + _health);
+        }
+        [Serializable]
+        public class HealsChangeEvent: UnityEvent<int>
+        {
+
+        }
+
+        public void SetHealth(int health)
+        { 
+        _health = health;
         }
     }
 

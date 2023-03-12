@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using System.Collections;
 using UnityEditor.Animations;
+using AVPplatformer.Model;
 
 public class HERO : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class HERO : MonoBehaviour
     [SerializeField] private AnimatorController _armed;
     [SerializeField] private AnimatorController _disarmed;
 
-
+    [SerializeField] private ParticleSystem _hitParticles;
     [SerializeField] private SpawnComponent _footStepsParticle;
     [SerializeField] private SpawnComponent _jumpParticle;
     [SerializeField] private SpawnComponent _fallParticle;
@@ -37,11 +38,11 @@ public class HERO : MonoBehaviour
     private bool _isGrounded;
     private bool _allowDoubleJump;
     private Collider2D[] _interactionResult = new Collider2D[1];
-    private int _coins;
+  //  private int _coins;
     private bool _doubleJumpUsed;
     private bool _isJumping;
     private bool _upWind;
-    private bool _isArmed;
+  //  private bool _isArmed;
 
 
     private static readonly int IsGroundKey = Animator.StringToHash("isGround");
@@ -50,6 +51,8 @@ public class HERO : MonoBehaviour
     private static readonly int Hit = Animator.StringToHash("hit");
     private static readonly int AttackKey = Animator.StringToHash("attack");
 
+    private GameSession _session;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -57,6 +60,21 @@ public class HERO : MonoBehaviour
 
     }
 
+    public  void OnHealthChanged(int currentHealth)
+    {
+        _session.Data.Hp = currentHealth;
+    }
+
+
+    private void Start()
+    {
+        _session = FindObjectOfType<GameSession>();
+
+        var health = GetComponent<HealthComponent>();
+      
+        health.SetHealth(_session.Data.Hp);
+        UpdateHeroWeapon();
+    }
     public void SetDirection(Vector2 direction)
     {
         _direction = direction;
@@ -162,6 +180,13 @@ public class HERO : MonoBehaviour
         Debug.Log("ОРЕТ");
     }
 
+    public void AddCoins (int _numCoins)
+    {
+        _session.Data.Coins += _numCoins;
+       
+        Debug.Log("Всего монет " + _session.Data.Coins);
+    }
+
     private bool isGrounded()
     {
         return _groundCheck.isTouchingLayer;
@@ -173,16 +198,27 @@ public class HERO : MonoBehaviour
         _animator.SetTrigger(Hit);
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _damagejumpSpeed);
 
-        var coins = GetComponent<CoinMsgComponent>();
-        _coins = coins.Coinsnum;
 
-        if (_coins > 0)
+        if (_session.Data.Coins > 0)
         {
-            coins.SpawnCoins();
+            SpawnCoins();
         }
 
     }
 
+    public void SpawnCoins()
+    {
+        var numCoinsToDispose = Mathf.Min(_session.Data.Coins, 5);
+        _session.Data.Coins -= numCoinsToDispose;
+
+        var burst = _hitParticles.emission.GetBurst(0);
+        burst.count = numCoinsToDispose;
+        _hitParticles.emission.SetBurst(0, burst);
+
+        _hitParticles.gameObject.SetActive(true);
+        _hitParticles.Play();
+       // Debug.Log("Всего монет " + _session.Data.Coins);
+    }
     public void Interact()
     {
         var size = Physics2D.OverlapCircleNonAlloc(transform.position, _interactionRadius, _interactionResult, _interactionLayer);
@@ -195,7 +231,7 @@ public class HERO : MonoBehaviour
     }
     public void Attack()
     {
-        if (!_isArmed) return;
+        if (!_session.Data.IsArmed) return;
        
         _animator.SetTrigger(AttackKey);
 
@@ -217,8 +253,9 @@ public class HERO : MonoBehaviour
 
     public void ArmHero()
     {
-        _isArmed = true;
-        _animator.runtimeAnimatorController = _armed;
+        _session.Data.IsArmed = true;
+
+        UpdateHeroWeapon();
      }
 
     //private void OnCollisionEnter2D(Collision2D other)
@@ -266,5 +303,16 @@ public class HERO : MonoBehaviour
     
     }
 
+    private void UpdateHeroWeapon()
+    {
+        if (_session.Data.IsArmed) 
+        {
+            _animator.runtimeAnimatorController = _armed;
+        }
+        else
+        {
+            _animator.runtimeAnimatorController = _disarmed;
+        }
+    }
 }
 
