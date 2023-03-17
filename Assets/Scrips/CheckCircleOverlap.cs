@@ -8,7 +8,7 @@ public class CheckCircleOverlap : MonoBehaviour
     [SerializeField] private float _radius = 1f;
  
 
-    private Collider2D[] _interactionResult = new Collider2D[5];
+    private Collider2D[] _interactionResult = new Collider2D[10];
 
     public GameObject[] GetObjectsInRange()
     {
