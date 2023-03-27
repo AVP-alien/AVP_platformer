@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class LayerCheck : MonoBehaviour
 {
-    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _layer;
+    [SerializeField] private bool _isTouchingLayer;
     private Collider2D _collider;
-    public bool isTouchingLayer;
 
+    //public bool isTouchingLayer => _isTouchingLayer;
+    public bool isTouchingLayer;
 
     private void Awake()
     {
@@ -15,12 +17,12 @@ public class LayerCheck : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        isTouchingLayer = _collider.IsTouchingLayers(_groundLayer);
+        isTouchingLayer = _collider.IsTouchingLayers(_layer);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        isTouchingLayer = _collider.IsTouchingLayers(_groundLayer);
+        isTouchingLayer = _collider.IsTouchingLayers(_layer);
    
      }
 }

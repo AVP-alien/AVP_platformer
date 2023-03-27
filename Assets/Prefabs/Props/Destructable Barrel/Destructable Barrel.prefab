@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5543592766498287596}
   - component: {fileID: 5543592766498287597}
   - component: {fileID: 1552422207}
+  - component: {fileID: 383329296}
   m_Layer: 10
   m_Name: Destructable Barrel
   m_TagString: ENEMY
@@ -175,7 +176,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1552422207}
+        - m_Target: {fileID: 383329296}
           m_MethodName: CoinsSpawn
           m_Mode: 1
           m_Arguments:
@@ -266,6 +267,9 @@ MonoBehaviour:
           m_StringArgument: destroy
           m_BoolArgument: 0
         m_CallState: 2
+  _onChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &5543592766498287596
 Rigidbody2D:
   serializedVersion: 4
@@ -317,5 +321,27 @@ MonoBehaviour:
     type: 3}
   coin2Prefab: {fileID: 5712758613937712614, guid: 788bfacb3f98d3343826b8e89db6e3f3,
     type: 3}
-  minCoins: 1
-  maxCoins: 3
+  minGoldCoins: 1
+  maxGoldCoins: 5
+  minSilverCoins: 1
+  maxSilverCoins: 5
+--- !u!114 &383329296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543592766498287589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6185a7dca01b94a92468357f49b29c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin1Prefab: {fileID: 5616572132849732643, guid: 3d810c8d5b0afb7468de6a2d89e5d451,
+    type: 3}
+  coin2Prefab: {fileID: 5712758613937712614, guid: 788bfacb3f98d3343826b8e89db6e3f3,
+    type: 3}
+  minGoldCoins: 1
+  maxGoldCoins: 5
+  minSilverCoins: 1
+  maxSilverCoins: 5

@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &606078877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 606078878}
+  - component: {fileID: 606078879}
+  - component: {fileID: 606078880}
+  m_Layer: 12
+  m_Name: InteractCheck
+  m_TagString: Player
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &606078878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606078877}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8935208307196727979}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &606078879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606078877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d846ea88378a8040b6cdb5a013131ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mask:
+    serializedVersion: 2
+    m_Bits: 16384
+  _tags: Interactable
+  _radius: 0.5
+  _onOverlap:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 606078880}
+        m_MethodName: DoInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &606078880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606078877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e1b94488bfcd947ad1d3ac2ebdcae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8935208306026584641
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,9 +231,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b3851f831ee82478ddb18ae6c8027a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundLayer:
+  _layer:
     serializedVersion: 2
     m_Bits: 1024
+  _isTouchingLayer: 1
   isTouchingLayer: 1
 --- !u!1 &8935208306427227396
 GameObject:
@@ -5177,6 +5253,7 @@ GameObject:
   - component: {fileID: 8935208307196727985}
   - component: {fileID: 8935208307196727988}
   - component: {fileID: 8935208307196727996}
+  - component: {fileID: 1545696429}
   m_Layer: 12
   m_Name: Hero_0
   m_TagString: Player
@@ -5202,6 +5279,7 @@ Transform:
   - {fileID: 8935208307150433771}
   - {fileID: 8935208306026584640}
   - {fileID: 8935208307067865044}
+  - {fileID: 606078878}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5327,25 +5405,23 @@ MonoBehaviour:
   _speed: 4
   _jumpSpeed: 10
   _damage: 1
-  _damagejumpSpeed: 7
-  _slamDownVelocity: 15
-  _groundCheck: {fileID: 8935208306269874762}
+  _damageVelocity: 5
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1024
-  _interactionRadius: 0.5
+  _groundCheck: {fileID: 8935208306269874762}
+  _attackRange: {fileID: 8935208307244931185}
+  _particles: {fileID: 1545696429}
+  _interactionCheck: {fileID: 606078879}
+  _wallCheck: {fileID: 0}
   _interactionLayer:
     serializedVersion: 2
     m_Bits: 16384
-  _gravityChange: 10
-  _attackRange: {fileID: 8935208307244931185}
+  _slamDownVelocity: 10
+  _interactionRadius: 0.5
   _armed: {fileID: 9100000, guid: 45d1137594920164a8faed4eb121fc3f, type: 2}
   _disarmed: {fileID: 9100000, guid: d7e6e8c7a26b5c640b3c8ecfe594905f, type: 2}
   _hitParticles: {fileID: 8935208306427227398}
-  _footStepsParticle: {fileID: 8935208306026584643}
-  _jumpParticle: {fileID: 8935208306431005255}
-  _fallParticle: {fileID: 8935208307150433768}
-  _attack1Particle: {fileID: 8935208307067865046}
 --- !u!114 &8935208307196727978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5531,6 +5607,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1545696429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8935208307196727977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea12f7ea955b1244caf7adcfb5db6945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawners:
+  - Id: Run
+    Component: {fileID: 8935208306026584643}
+  - Id: SlamDown
+    Component: {fileID: 8935208307150433768}
+  - Id: Jump
+    Component: {fileID: 8935208306431005255}
+  - Id: Attack
+    Component: {fileID: 8935208307067865046}
 --- !u!1 &8935208307244931191
 GameObject:
   m_ObjectHideFlags: 0
@@ -5541,8 +5638,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8935208307244931190}
   - component: {fileID: 8935208307244931185}
+  - component: {fileID: 1692600034}
   m_Layer: 12
-  m_Name: AttackRange
+  m_Name: AttackCheck
   m_TagString: Player
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -5574,4 +5672,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d846ea88378a8040b6cdb5a013131ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mask:
+    serializedVersion: 2
+    m_Bits: 1024
+  _tags: ENEMY
   _radius: 0.3
+  _onOverlap:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1692600034}
+        m_MethodName: ApplyDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1692600034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8935208307244931191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9aa2bb0be96f44489dce0ed416ee570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _HPchange: 1

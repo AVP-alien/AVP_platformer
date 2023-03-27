@@ -6,11 +6,11 @@ namespace AVPplatformer.Components
     public class SilverCoinsCounterComponent : MonoBehaviour
     {
         [SerializeField] private int _numCoins;
-        private HERO _hero;
+        private Creatures.HERO _hero;
 
         private void Start()
         {
-            _hero = FindObjectOfType<HERO>();
+            _hero = FindObjectOfType<Creatures.HERO>();
         }
 
         public void Add()
