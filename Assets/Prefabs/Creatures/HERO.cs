@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEditor.Animations;
 using AVPplatformer.Model;
+using AVPplatformer.Utils;
 
 namespace AVPplatformer.Creatures
 {
@@ -16,6 +17,7 @@ namespace AVPplatformer.Creatures
         [SerializeField] private float _slamDownVelocity;
         [SerializeField] private float _interactionRadius;
 
+        [SerializeField] private Cooldown _throwCooldown;
         [SerializeField] private AnimatorController _armed;
         [SerializeField] private AnimatorController _disarmed;
 
@@ -23,6 +25,7 @@ namespace AVPplatformer.Creatures
         [Header("Particles")]
         [SerializeField] private ParticleSystem _hitParticles;
 
+        private static readonly int ThrowKey = Animator.StringToHash("throw");
 
         private bool _allowDoubleJump;
         private bool _isOnWall;
@@ -30,6 +33,7 @@ namespace AVPplatformer.Creatures
         // private bool _doubleJumpUsed;
         private bool _upWind;
         private float _defaultGravityScale;
+
 
         private GameSession _session;
 
@@ -115,16 +119,6 @@ namespace AVPplatformer.Creatures
 
         }
 
-
-        public void AddCoins(int _numCoins)
-        {
-            _session.Data.Coins += _numCoins;
-
-            Debug.Log("Всего монет " + _session.Data.Coins);
-        }
-
-
-
         public override void TakeDamage()
         {
             base.TakeDamage();
@@ -188,11 +182,26 @@ namespace AVPplatformer.Creatures
 
 
 
+        public void AddCoins(int _numCoins)
+        {
+            _session.Data.Coins += _numCoins;
+
+            Debug.Log("Всего монет " + _session.Data.Coins);
+        }
+
         public void UpWind()
         {
 
             _upWind = true;
 
+        }
+
+
+        public void AddSword(int _numSwords)
+        {
+            _session.Data.Swords += _numSwords;
+
+            Debug.Log("Всего мечей " + _session.Data.Swords);
         }
 
         private void UpdateHeroWeapon()
@@ -205,6 +214,37 @@ namespace AVPplatformer.Creatures
             {
                 _animator.runtimeAnimatorController = _disarmed;
             }
+        }
+        public void Throw()
+        {
+
+            if (_throwCooldown.IsReady && _session.Data.Swords > 1)
+            {
+                _animator.SetTrigger(id: ThrowKey);
+                _throwCooldown.Reset();
+                _session.Data.Swords--;
+                Debug.Log("Всего мечей " + _session.Data.Swords);
+            }
+
+        }
+        //public void ThrowBurst()
+        //{
+        //    for (int i = 0; i < 3; i++)
+        //    {
+        //        if ( _session.Data.Swords > 1)
+        //        {
+        //            _animator.SetTrigger(id: ThrowKey);
+        //            _session.Data.Swords--;
+        //            Debug.Log("Всего мечей " + _session.Data.Swords);
+        //        }
+        //    }
+        //}
+
+        public void OnDoThrow()
+        {
+            _particles.Spawn("Throw");
+
+
         }
     }
 }

@@ -60,14 +60,14 @@ namespace AVPplatformer
 
         private void StartAnimation ()
         {
-            _nextFrameTime = Time.time + _secondsPerFrame;
+            _nextFrameTime = Time.time;
            enabled = _isPlaying = true;
             _currentSpriteIndex= 0;
         }
 
         private void OnEnable ()
         {
-            _nextFrameTime = Time.time + _secondsPerFrame;
+            _nextFrameTime = Time.time ;
         
         }
 

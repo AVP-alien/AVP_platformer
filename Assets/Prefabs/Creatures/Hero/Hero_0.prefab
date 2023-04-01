@@ -75,6 +75,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e1b94488bfcd947ad1d3ac2ebdcae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3944080343828813288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5123189968413206302}
+  - component: {fileID: 8329575997470869118}
+  m_Layer: 12
+  m_Name: ThrowSwordSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5123189968413206302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944080343828813288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8935208307196727979}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8329575997470869118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944080343828813288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d355f50f439454e81bed7d9691a506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 436971615892866714, guid: decbdd11347d907409f53355eb300f1e, type: 3}
+  _target: {fileID: 5123189968413206302}
 --- !u!1 &8935208306026584641
 GameObject:
   m_ObjectHideFlags: 0
@@ -5249,8 +5294,6 @@ GameObject:
   - component: {fileID: 8935208307196727997}
   - component: {fileID: 8935208307196727989}
   - component: {fileID: 8935208307196727978}
-  - component: {fileID: 8935208307196727984}
-  - component: {fileID: 8935208307196727985}
   - component: {fileID: 8935208307196727988}
   - component: {fileID: 8935208307196727996}
   - component: {fileID: 1545696429}
@@ -5280,6 +5323,7 @@ Transform:
   - {fileID: 8935208306026584640}
   - {fileID: 8935208307067865044}
   - {fileID: 606078878}
+  - {fileID: 5123189968413206302}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5381,7 +5425,7 @@ Animator:
   m_GameObject: {fileID: 8935208307196727977}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d7e6e8c7a26b5c640b3c8ecfe594905f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 45d1137594920164a8faed4eb121fc3f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5404,8 +5448,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _jumpSpeed: 10
-  _damage: 1
   _damageVelocity: 5
+  _invertScale: 0
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -5414,11 +5458,10 @@ MonoBehaviour:
   _particles: {fileID: 1545696429}
   _interactionCheck: {fileID: 606078879}
   _wallCheck: {fileID: 0}
-  _interactionLayer:
-    serializedVersion: 2
-    m_Bits: 16384
   _slamDownVelocity: 10
   _interactionRadius: 0.5
+  _throwCooldown:
+    _value: 1
   _armed: {fileID: 9100000, guid: 45d1137594920164a8faed4eb121fc3f, type: 2}
   _disarmed: {fileID: 9100000, guid: d7e6e8c7a26b5c640b3c8ecfe594905f, type: 2}
   _hitParticles: {fileID: 8935208306427227398}
@@ -5435,32 +5478,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hero: {fileID: 8935208307196727989}
---- !u!114 &8935208307196727984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8935208307196727977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f02d6967cc55494fbf40b036991342a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _numCoins: 10
---- !u!114 &8935208307196727985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8935208307196727977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c06de7cc455d7241ad4b46e8837ac41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _numCoins: 1
 --- !u!114 &8935208307196727988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5487,21 +5504,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8935208307196727978}
-        m_MethodName: OnSaySomething
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 9f53dc24-3dfe-48c4-89ab-aebb5ac178c3
-    m_ActionName: Hero/SaySomething[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8935208307196727978}
@@ -5546,6 +5548,21 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 3c5005c3-711c-41ff-9e70-8e3d36fc94e5
+    m_ActionName: Hero/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8935208307196727978}
+        m_MethodName: OnThrow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 535aed6e-ca02-4ffa-aebd-e16d0c36ac9e
     m_ActionName: Hero/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
@@ -5628,6 +5645,8 @@ MonoBehaviour:
     Component: {fileID: 8935208306431005255}
   - Id: Attack
     Component: {fileID: 8935208307067865046}
+  - Id: Throw
+    Component: {fileID: 8329575997470869118}
 --- !u!1 &8935208307244931191
 GameObject:
   m_ObjectHideFlags: 0
@@ -5674,7 +5693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 68608
   _tags: ENEMY
   _radius: 0.3
   _onOverlap:

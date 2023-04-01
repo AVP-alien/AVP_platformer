@@ -11,6 +11,7 @@ namespace AVPplatformer.Creatures
 
         [SerializeField] private float _alarmDelay = 0.5f;
         [SerializeField] private float _attackCooldown = 1f;
+        [SerializeField] private float _missHeroCooldown = 1f;
         private Coroutine _current;
         private GameObject _target;
 
@@ -47,12 +48,19 @@ namespace AVPplatformer.Creatures
 
         private IEnumerator AgroToHero()
         {
+            LookAtHero();
             _particles.Spawn("Exclamation");
             yield return new WaitForSeconds(_alarmDelay);
             StartState(GoToHero());
 
         }
 
+        private void LookAtHero()
+        {
+            _creature.SetDirection(Vector2.zero);
+            var direction = GetDirectionToTarget();
+            _creature.UpdateSpriteDirection(direction);
+        }
         private IEnumerator GoToHero()
         {
             while (_vision.isTouchingLayer)
@@ -69,7 +77,11 @@ namespace AVPplatformer.Creatures
                 yield return null;
 
             }
+          
             _particles.Spawn("Miss");
+            yield return new WaitForSeconds(_missHeroCooldown);
+
+            StartState (_patrol.DoPatrol());
 
         }
 
@@ -89,7 +101,13 @@ namespace AVPplatformer.Creatures
             direction.y = 0;
             _creature.SetDirection(direction.normalized);
         }
+        private Vector2 GetDirectionToTarget()
 
+        {
+            var direction = _target.transform.position - transform.position;
+            direction.y = 0;
+            return direction.normalized;
+        }
         private void StartState(IEnumerator coroutine)
         {
             _creature.SetDirection(Vector2.zero);
@@ -106,6 +124,8 @@ namespace AVPplatformer.Creatures
             _isDead = true;
             _animator.SetBool(isDeadKey, true);
 
+            _creature.SetDirection(Vector2.zero);
+
             _capsuleCollider.direction = CapsuleDirection2D.Horizontal;  // поворот коллайдера
             _capsuleCollider.offset = new Vector2(0f,-0.15f);       // коррекция смащения коллайдера под спрайт
             _capsuleCollider.size = new Vector2(0.7f, 0.5f);        // коррекция размера коллайдера под спрайт
@@ -116,7 +136,7 @@ namespace AVPplatformer.Creatures
                 StopCoroutine(_current);
         }
 
-
+       
 
     }
 

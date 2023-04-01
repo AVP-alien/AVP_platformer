@@ -10,6 +10,7 @@ namespace AVPplatformer.Model
 
         public int Coins;
         public int Hp;
+        public int Swords;
         public bool IsArmed;
 
     }
