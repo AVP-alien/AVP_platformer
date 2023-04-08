@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 5712758613937712623}
   - component: {fileID: 5712758613937712609}
   - component: {fileID: 8878142039806587882}
+  - component: {fileID: 6738493007873861911}
+  - component: {fileID: 7805356602800784971}
   m_Layer: 11
   m_Name: Coins_Silver
   m_TagString: Coins
@@ -228,6 +230,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _numCoins: 1
+--- !u!114 &6738493007873861911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712758613937712614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1524e28230baa4db47a452d5a4643d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frequency: 6
+  _amplitude: 0.15
+  _randomize: 1
+--- !u!50 &7805356602800784971
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712758613937712614}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &5712758615550517622
 GameObject:
   m_ObjectHideFlags: 0

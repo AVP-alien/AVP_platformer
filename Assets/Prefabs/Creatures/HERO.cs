@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor.Animations;
 using AVPplatformer.Model;
 using AVPplatformer.Utils;
+using UnityEditor.Experimental.GraphView;
 
 namespace AVPplatformer.Creatures
 {
@@ -63,8 +64,8 @@ namespace AVPplatformer.Creatures
         protected override void Update()
         {
             base.Update();
-
-            //if (_wallCheck.isTouchingLayer && Direction.x == transform.localScale.x)
+           //var moveToSameDirection = Direction.x * transform.lossyScale.x > 0;
+            //if (_wallCheck.isTouchingLayer && moveToSameDirection)
             //{
             //    _isOnWall = true;
             //    _rigidbody.gravityScale = 0;
