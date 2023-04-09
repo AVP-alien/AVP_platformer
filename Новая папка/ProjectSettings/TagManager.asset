@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - SilverCoins
+  - GoldenCoins
+  - Coins
+  - ENEMY
+  - HEALER
+  - Interactable
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Background
+  - Rear Decor
+  - Level
+  - Props
+  - Hero
+  - Front Decor
+  - Interactable
+  - Trash
+  - Creatures
+  - Checkers
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3989603267
+    locked: 0
+  - name: Rear Decor
+    uniqueID: 981318637
+    locked: 0
+  - name: Level
+    uniqueID: 3134069225
+    locked: 0
+  - name: Props
+    uniqueID: 3473400071
+    locked: 0
+  - name: Hero
+    uniqueID: 821789041
+    locked: 0
+  - name: Front Decor
+    uniqueID: 2922552161
+    locked: 0

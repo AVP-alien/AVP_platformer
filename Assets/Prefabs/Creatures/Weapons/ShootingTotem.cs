@@ -6,39 +6,38 @@ using UnityEngine;
 
 public class ShootingTotem : MonoBehaviour
 {
-    [SerializeField] public List<LayerCheck> _vision;
-    [SerializeField] private List<GameObject> _objectsToShoot;// список стреляющих объектов
-  
-   private int _currentIndex = 0; // индекс текущего объекта
 
-    [SerializeField] private Cooldown _cooldown;
-    private int currentIndex = 0;
+    [SerializeField] private List<ShootingTrapWithoutMeleeAI> _objectsToShoot;
+    [SerializeField] public Cooldown _cooldown;
+
+    private int _currentIndex = 0; 
 
     private void Start()
     {
-        currentIndex = 0;
+        _currentIndex = 0;
+        foreach (var ShootingTrapWithoutMeleeAI in _objectsToShoot)
+        {
+            ShootingTrapWithoutMeleeAI.enabled = false;
+        }
     }
 
     private void Update()
     {
-        if (_vision.Any(x => x.isTouchingLayer) )
+        var targetInSight = _objectsToShoot.Any(x => x._vision.isTouchingLayer);
+        if (targetInSight)
         {
             if (_cooldown.IsReady)
             {
-                // получаем текущий объект из списка
-                GameObject currentObject = _objectsToShoot[currentIndex];
+                _objectsToShoot[_currentIndex].RangeAttack();
+                _cooldown.Reset();
 
-                // выполняем выстрел с текущего объекта
-                currentObject.GetComponent<ShootingTrapWithoutMeleeAI>().RangeAttack();
+                _currentIndex++;
 
-                // увеличиваем индекс текущего объекта
-                currentIndex++;
-
-                // если индекс достиг конца списка, возвращаем его к началу
-                if (currentIndex >= _objectsToShoot.Count)
+                if (_currentIndex >= _objectsToShoot.Count)
                 {
-                    currentIndex = 0;
+                    _currentIndex = 0;
                 }
+   
             }
         }
 
