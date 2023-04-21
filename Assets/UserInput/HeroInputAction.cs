@@ -26,14 +26,7 @@ public class @HeroInputAction : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""interactions"": """"
                 },
-                {
-                    ""name"": ""SaySomething"",
-                    ""type"": ""Button"",
-                    ""id"": ""9f53dc24-3dfe-48c4-89ab-aebb5ac178c3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
+              
                 {
                     ""name"": ""2DMovement"",
                     ""type"": ""Button"",
@@ -151,7 +144,7 @@ public class @HeroInputAction : IInputActionCollection, IDisposable
         // Hero
         m_Hero = asset.FindActionMap("Hero", throwIfNotFound: true);
         m_Hero_Horizontal = m_Hero.FindAction("Horizontal", throwIfNotFound: true);
-        m_Hero_SaySomething = m_Hero.FindAction("SaySomething", throwIfNotFound: true);
+       
         m_Hero__2DMovement = m_Hero.FindAction("2DMovement", throwIfNotFound: true);
     }
 
@@ -203,14 +196,14 @@ public class @HeroInputAction : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Hero;
     private IHeroActions m_HeroActionsCallbackInterface;
     private readonly InputAction m_Hero_Horizontal;
-    private readonly InputAction m_Hero_SaySomething;
+  
     private readonly InputAction m_Hero__2DMovement;
     public struct HeroActions
     {
         private @HeroInputAction m_Wrapper;
         public HeroActions(@HeroInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Horizontal => m_Wrapper.m_Hero_Horizontal;
-        public InputAction @SaySomething => m_Wrapper.m_Hero_SaySomething;
+   
         public InputAction @_2DMovement => m_Wrapper.m_Hero__2DMovement;
         public InputActionMap Get() { return m_Wrapper.m_Hero; }
         public void Enable() { Get().Enable(); }
@@ -224,10 +217,7 @@ public class @HeroInputAction : IInputActionCollection, IDisposable
                 @Horizontal.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnHorizontal;
                 @Horizontal.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnHorizontal;
                 @Horizontal.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnHorizontal;
-                @SaySomething.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnSaySomething;
-                @SaySomething.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnSaySomething;
-                @SaySomething.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnSaySomething;
-                @_2DMovement.started -= m_Wrapper.m_HeroActionsCallbackInterface.On_2DMovement;
+               @_2DMovement.started -= m_Wrapper.m_HeroActionsCallbackInterface.On_2DMovement;
                 @_2DMovement.performed -= m_Wrapper.m_HeroActionsCallbackInterface.On_2DMovement;
                 @_2DMovement.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.On_2DMovement;
             }
@@ -237,9 +227,7 @@ public class @HeroInputAction : IInputActionCollection, IDisposable
                 @Horizontal.started += instance.OnHorizontal;
                 @Horizontal.performed += instance.OnHorizontal;
                 @Horizontal.canceled += instance.OnHorizontal;
-                @SaySomething.started += instance.OnSaySomething;
-                @SaySomething.performed += instance.OnSaySomething;
-                @SaySomething.canceled += instance.OnSaySomething;
+             
                 @_2DMovement.started += instance.On_2DMovement;
                 @_2DMovement.performed += instance.On_2DMovement;
                 @_2DMovement.canceled += instance.On_2DMovement;

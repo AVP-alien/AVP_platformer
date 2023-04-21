@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SilverCoins
+  - GoldenCoins
+  - Coins
+  - ENEMY
+  - HEALER
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -19,10 +25,10 @@ TagManager:
   - Props
   - Hero
   - Front Decor
-  - 
-  - 
-  - 
-  - 
+  - Interactable
+  - Trash
+  - Creatures
+  - Checkers
   - 
   - 
   - 
