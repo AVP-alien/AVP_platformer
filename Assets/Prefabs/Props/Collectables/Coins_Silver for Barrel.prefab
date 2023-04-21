@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5712758613937712623}
   - component: {fileID: 5712758613937712609}
   - component: {fileID: 7525745253666635518}
-  - component: {fileID: 5294477543480893340}
+  - component: {fileID: 6009309591414271897}
   m_Layer: 11
   m_Name: Coins_Silver for Barrel
   m_TagString: Coins
@@ -124,9 +124,9 @@ MonoBehaviour:
   _action:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5294477543480893340}
+      - m_Target: {fileID: 6009309591414271897}
         m_MethodName: Add
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -237,7 +237,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5294477543480893340
+--- !u!114 &6009309591414271897
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,10 +246,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5712758613937712614}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f02d6967cc55494fbf40b036991342a, type: 3}
+  m_Script: {fileID: 11500000, guid: 704e7e560b8ba1d47808644a30e6f8ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numCoins: 1
+  _id: Coin
+  _count: 1
 --- !u!1 &5712758615550517622
 GameObject:
   m_ObjectHideFlags: 0

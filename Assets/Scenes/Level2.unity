@@ -7565,7 +7565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f02d6967cc55494fbf40b036991342a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numCoins: 0
 --- !u!4 &1087045337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5712758613937712621, guid: 39e39fffe9ecd6842b513b9e188817d5,
@@ -12245,10 +12244,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    Coins: 0
+    _inventory:
+      _inventory: []
     Hp: 10
-    Swords: 0
-    IsArmed: 0
 --- !u!4 &1872620951
 Transform:
   m_ObjectHideFlags: 0

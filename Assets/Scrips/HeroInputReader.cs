@@ -1,4 +1,5 @@
-﻿using AVPplatformer.Creatures;
+﻿using AVPplatformer.Components;
+using AVPplatformer.Creatures;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,18 +31,24 @@ public class HeroInputReader : MonoBehaviour
     public void OnThrow(InputAction.CallbackContext context)
     {
 
-       // if (context.started)
-       // {
-       //     _hero.ThrowBurst();
-       // }
-       //else 
-       if (context.canceled)
+        // if (context.started)
+        // {
+        //     _hero.ThrowBurst();
+        // }
+        //else 
+        if (context.canceled)
         {
             _hero.Throw();
         }
     }
-
-    //private void OnEnable()
+    //public void OnHeal(InputAction.CallbackContext context)
+    //{
+    //    if (context.canceled)
+    //    {
+    //        _hero.Heal();
+    //    }
+    //}
+}
     //{
     //    // Подписываемся на события ввода, передавая имя действия и метод, который будет вызываться
     //    // при срабатывании события.
@@ -80,5 +87,5 @@ public class HeroInputReader : MonoBehaviour
     //{
     //    _hero.Throw();
     //}
-}
+
 

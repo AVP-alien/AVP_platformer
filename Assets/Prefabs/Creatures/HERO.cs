@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEditor.Animations;
 using AVPplatformer.Model;
 using AVPplatformer.Utils;
-using UnityEditor.Experimental.GraphView;
 
 namespace AVPplatformer.Creatures
 {
@@ -35,6 +34,8 @@ namespace AVPplatformer.Creatures
         private bool _upWind;
         private float _defaultGravityScale;
 
+        private int CoinCount => _session.Data.Inventory.Count("Coin");
+        private int SwordCount => _session.Data.Inventory.Count("Sword");
 
         private GameSession _session;
 
@@ -53,18 +54,42 @@ namespace AVPplatformer.Creatures
 
             var health = GetComponent<HealthComponent>();
 
+            _session.Data.Inventory.OnChanged += OnInventoryChanged;
+            // _session.Data.Inventory.OnChanged += AnotherHendler;
+
             health.SetHealth(_session.Data.Hp);
             UpdateHeroWeapon();
         }
+
+        private void OnDestroy()
+        {
+            _session.Data.Inventory.OnChanged -= OnInventoryChanged;
+            // _session.Data.Inventory.OnChanged -= AnotherHendler;
+        }
+        private void AnotherHendler(string id, int value)
+        {
+            Debug.Log($"Inventory changed: {id} {value}");
+        }
+
+        private void OnInventoryChanged(string id, int value)
+        {
+            if (id == "Sword")
+                UpdateHeroWeapon();
+        }
+
         public void OnHealthChanged(int currentHealth)
         {
             _session.Data.Hp = currentHealth;
         }
 
+        //public void Heal()
+        //{
+           
+        //}
         protected override void Update()
         {
             base.Update();
-           //var moveToSameDirection = Direction.x * transform.lossyScale.x > 0;
+            //var moveToSameDirection = Direction.x * transform.lossyScale.x > 0;
             //if (_wallCheck.isTouchingLayer && moveToSameDirection)
             //{
             //    _isOnWall = true;
@@ -120,10 +145,15 @@ namespace AVPplatformer.Creatures
 
         }
 
+        public void AddInInventory(string id, int value)
+        {
+            _session.Data.Inventory.Add(id, value);
+        }
+
         public override void TakeDamage()
         {
             base.TakeDamage();
-            if (_session.Data.Coins > 0)
+            if (CoinCount > 0)
             {
                 SpawnCoins();
             }
@@ -132,8 +162,10 @@ namespace AVPplatformer.Creatures
 
         public void SpawnCoins()
         {
-            var numCoinsToDispose = Mathf.Min(_session.Data.Coins, 5);
-            _session.Data.Coins -= numCoinsToDispose;
+
+            var numCoinsToDispose = Mathf.Min(CoinCount, 5);
+            _session.Data.Inventory.Remove("Coin", numCoinsToDispose);
+
 
             var burst = _hitParticles.emission.GetBurst(0);
             burst.count = numCoinsToDispose;
@@ -153,19 +185,13 @@ namespace AVPplatformer.Creatures
 
         public override void Attack()
         {
-            if (!_session.Data.IsArmed) return;
+            var numSwords = _session.Data.Inventory.Count("Sword");
+            if (numSwords <= 0) return;
 
             base.Attack();
         }
 
 
-
-        public void ArmHero()
-        {
-            _session.Data.IsArmed = true;
-
-            UpdateHeroWeapon();
-        }
 
         //private void OnCollisionEnter2D(Collision2D other)
         //{
@@ -183,12 +209,6 @@ namespace AVPplatformer.Creatures
 
 
 
-        public void AddCoins(int _numCoins)
-        {
-            _session.Data.Coins += _numCoins;
-
-            Debug.Log("Всего монет " + _session.Data.Coins);
-        }
 
         public void UpWind()
         {
@@ -198,33 +218,20 @@ namespace AVPplatformer.Creatures
         }
 
 
-        public void AddSword(int _numSwords)
-        {
-            _session.Data.Swords += _numSwords;
-
-            Debug.Log("Всего мечей " + _session.Data.Swords);
-        }
-
         private void UpdateHeroWeapon()
         {
-            if (_session.Data.IsArmed)
-            {
-                _animator.runtimeAnimatorController = _armed;
-            }
-            else
-            {
-                _animator.runtimeAnimatorController = _disarmed;
-            }
+            _animator.runtimeAnimatorController = SwordCount > 0 ? _armed : _disarmed;
         }
         public void Throw()
         {
 
-            if (_throwCooldown.IsReady && _session.Data.Swords > 1)
+            if (_throwCooldown.IsReady && SwordCount > 1)
             {
                 _animator.SetTrigger(id: ThrowKey);
                 _throwCooldown.Reset();
-                _session.Data.Swords--;
-                Debug.Log("Всего мечей " + _session.Data.Swords);
+                _session.Data.Inventory.Remove("Sword", 1);
+
+                Debug.Log("Всего мечей " + SwordCount);
             }
 
         }
@@ -244,7 +251,6 @@ namespace AVPplatformer.Creatures
         public void OnDoThrow()
         {
             _particles.Spawn("Throw");
-
 
         }
     }
