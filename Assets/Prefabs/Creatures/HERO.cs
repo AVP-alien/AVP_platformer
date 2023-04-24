@@ -82,10 +82,16 @@ namespace AVPplatformer.Creatures
             _session.Data.Hp = currentHealth;
         }
 
-        //public void Heal()
-        //{
-           
-        //}
+        public void Heal()
+        {
+            var health = GetComponent<HealthComponent>();
+            var poisonCheck = GetComponent<RequireItemComponent>();
+
+            // health.ApplyHeal(5);
+            poisonCheck.Check();
+
+        }
+
         protected override void Update()
         {
             base.Update();

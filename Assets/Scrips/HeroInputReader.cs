@@ -41,13 +41,13 @@ public class HeroInputReader : MonoBehaviour
             _hero.Throw();
         }
     }
-    //public void OnHeal(InputAction.CallbackContext context)
-    //{
-    //    if (context.canceled)
-    //    {
-    //        _hero.Heal();
-    //    }
-    //}
+    public void OnHeal(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            _hero.Heal();
+        }
+    }
 }
     //{
     //    // Подписываемся на события ввода, передавая имя действия и метод, который будет вызываться

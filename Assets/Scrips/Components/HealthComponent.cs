@@ -31,8 +31,11 @@ namespace AVPplatformer.Components
         public void ApplyHeal(int HealValue)
         {
             _health += HealValue;
+            _onChange?.Invoke(_health);
             Debug.Log("Осталось здоровья " + _health);
         }
+
+
         [Serializable]
         public class HealsChangeEvent : UnityEvent<int>
         {

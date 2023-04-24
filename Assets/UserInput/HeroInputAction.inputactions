@@ -139,7 +139,7 @@
                     "name": "",
                     "id": "f792579b-19e4-4bb2-be25-6953152423c4",
                     "path": "<Keyboard>/h",
-                    "interactions": "",
+                    "interactions": "Press(pressPoint=0.1,behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "Heal",
