@@ -1,4 +1,5 @@
 ﻿using AVPplatformer.Components;
+using AVPplatformer.Components.Aduio;
 using System.Collections;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ namespace AVPplatformer.Creatures
         public bool _isDead;
         private Patrol _patrol;
         private CapsuleCollider2D _capsuleCollider;
+        private PlaySoundsComponent _sounds;
 
 
         private void Awake()
@@ -32,6 +34,7 @@ namespace AVPplatformer.Creatures
             _animator = GetComponent<Animator>();
             _patrol = GetComponent<Patrol>();
             _capsuleCollider = GetComponent<CapsuleCollider2D>();
+            _sounds = GetComponent<PlaySoundsComponent>();
 
         }
         private void Start()
@@ -90,6 +93,7 @@ namespace AVPplatformer.Creatures
             while (_canAttack.isTouchingLayer)
             {
                 _creature.Attack();
+                _sounds.Play("melee");
                 yield return new WaitForSeconds(_attackCooldown);
             }
             StartState(GoToHero());

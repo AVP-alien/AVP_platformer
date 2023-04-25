@@ -1,4 +1,5 @@
 ﻿using AVPplatformer.Components;
+using AVPplatformer.Components.Aduio;
 using AVPplatformer.Utils;
 using System;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace AVPplatformer.Creatures
         [SerializeField] private Cooldown _rangeCooldown;
 
         private Animator _animator;
+        private PlaySoundsComponent _sounds;
 
         private static readonly int Range = Animator.StringToHash("range");
 
@@ -22,6 +24,7 @@ namespace AVPplatformer.Creatures
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            _sounds = GetComponent<PlaySoundsComponent>();
         }
 
         public void Update()
@@ -46,6 +49,7 @@ namespace AVPplatformer.Creatures
         public void OnRangeAttack()
         {
             _rangeAttack.Spawn();
+            _sounds.Play("Shoot");
         }
 
     }

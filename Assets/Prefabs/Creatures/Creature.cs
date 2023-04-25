@@ -1,4 +1,5 @@
 ﻿using AVPplatformer.Components;
+using AVPplatformer.Components.Aduio;
 using UnityEngine;
 
 namespace AVPplatformer.Creatures
@@ -20,6 +21,7 @@ namespace AVPplatformer.Creatures
         protected Rigidbody2D _rigidbody;
         protected Vector2 _direction;
         protected Animator _animator;
+        protected PlaySoundsComponent _sounds;
         protected bool _isGrounded;
         protected bool _isJumping;
 
@@ -34,7 +36,7 @@ namespace AVPplatformer.Creatures
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
-
+            _sounds = GetComponent<PlaySoundsComponent>();
         }
 
         public void SetDirection(Vector2 direction)
@@ -101,7 +103,8 @@ namespace AVPplatformer.Creatures
             if (_isGrounded)
             {
                 yVelocity += _jumpSpeed;
-                //  _particles.Spawn( "Jump");
+                DoJumpVfx();
+               
             }
 
 
@@ -109,6 +112,11 @@ namespace AVPplatformer.Creatures
 
         }
 
+        protected void DoJumpVfx()
+        {
+            //  _particles.Spawn( "Jump");
+            _sounds.Play("jump");
+        }
         public void UpdateSpriteDirection(Vector2 direction)
         {
             var multiplier = _invertScale ? -1 : 1;
@@ -133,7 +141,7 @@ namespace AVPplatformer.Creatures
         public virtual void Attack()
         {
             _animator.SetTrigger(AttackKey);
-
+            _sounds.Play("melee");
         }
         public void OnAttacking()
         {

@@ -140,9 +140,8 @@ namespace AVPplatformer.Creatures
         {
             if (!_isGrounded && _allowDoubleJump)
             {
-                //_particles.Spawn("Jump");
-
                 _allowDoubleJump = false;
+                DoJumpVfx();
                 //    _doubleJumpUsed = true;
 
                 return _jumpSpeed;
@@ -257,7 +256,7 @@ namespace AVPplatformer.Creatures
         public void OnDoThrow()
         {
             _particles.Spawn("Throw");
-
+            _sounds.Play("range");
         }
     }
 }
